@@ -51,14 +51,13 @@ function clean(path) {
 
 export function* Routes() {
   for (let { children } of this) {
-    let pathname = this.get("pathname");
-    let child;
+    const pathname = this.get("pathname");
 
     if (!Array.isArray(children)) {
       children = [children];
     }
 
-    child = children.find(child => {
+    const child = children.find(child => {
       if (child.tag.symbol === routeSymbol) {
         // const pathReg = pathToRegexp(clean(normalize(child.props.path)));
         // const exp = pathReg.exec(pathname);
