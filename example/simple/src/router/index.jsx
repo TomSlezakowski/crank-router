@@ -64,7 +64,9 @@ export function* Routes() {
         // const exp = pathReg.exec(pathname);
         const m = match(child.props.path);
         const n = m(pathname);
-        
+         // Should allow for things such as 
+        // `/user/:userId/dashboard/:dashboardName`
+        // where the generated params are userId and dashboardName respectively.
         if (n) {
           return createElement(child, n.params);
         }
