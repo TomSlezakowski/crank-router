@@ -37,18 +37,6 @@ export function* Router({ children }) {
   }
 }
 
-function normalize(path) {
-  if (!path) return "/";
-  if (path[0] === "/") return path;
-
-  console.warn("Path type not handled yet");
-  return "/";
-}
-
-function clean(path) {
-  return path.replace(/\/\//g, "/");
-}
-
 export function* Routes() {
   for (let { children } of this) {
     const pathname = this.get("pathname");
@@ -59,11 +47,8 @@ export function* Routes() {
 
     const child = children.find(child => {
       if (child.tag.symbol === routeSymbol) {
-        const pathReg = pathToRegexp(clean(normalize(child.props.path)));
+        const pathReg = pathToRegexp(child.props.path.replace(/\/\//g, "/"));
         const exp = pathReg.exec(pathname);
-        // Should allow for things such as 
-        // `/user/:userId/dashboard/:dashboardName`
-        // where the generated params are userId and dashboardName respectively.
         if (exp) {
           return true;
         }
@@ -90,7 +75,7 @@ export function Route({ children }) {
   }
 
   return children.map(child => {
-    return createElement(child.tag, params);
+    return createElement(child.tag, {...params, ...child.props});
   });
 }
 

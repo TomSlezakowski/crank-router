@@ -3,8 +3,13 @@ import { createElement, Fragment } from "@bikeshaving/crank";
 import { renderer } from "@bikeshaving/crank/dom";
 import { Router, Link, Routes, Route } from "./router";
 
-function User({ userId, children }) {
-  return <h1>USER {userId}</h1>;
+function User({ userId, type }) {
+  return (
+    <Fragment>
+      <h1>USER {userId}</h1>
+      <h2>{type}</h2>
+    </Fragment>
+  );
 }
 
 function* App() {
@@ -35,7 +40,10 @@ function* App() {
             </Fragment>
           </Route>
           <Route path="/user/:userId">
-            <User />
+            <User type="homeslice" />
+          </Route>
+          <Route path="/admin/:userId">
+            <User type="admin" />
           </Route>
         </Routes>
       </Router>
