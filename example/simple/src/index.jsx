@@ -4,8 +4,7 @@ import { renderer } from "@bikeshaving/crank/dom";
 import { Router, Link, Routes, Route } from "./router";
 
 function User({ userId, children }) {
-  console.log("user", this.get('pathname'), this, children);
-  return <h1>USER</h1>;
+  return <h1>USER {userId}</h1>;
 }
 
 function* App() {
@@ -20,6 +19,7 @@ function* App() {
         <Routes>
           <Route path="/">
             <h1>Root</h1>
+            <p>This is the home page</p>
           </Route>
           <Route path="/about">
             <Fragment>

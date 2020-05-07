@@ -74,16 +74,24 @@ export function* Routes() {
     if (child) {
       const m = match(child.props.path);
       const params = m(pathname);
-      yield createElement(child.tag, params);
+      this.set('routeParams', {...params.params, ...child.props});
+      yield child;
     } else {
       yield null;
     }
   }
 }
 
-export function* Route({ children, userId }) {
-  console.log(userId);
-  return children;
+export function Route({ children }) {
+  const params = this.get('routeParams');
+  
+  if (!Array.isArray(children)) {
+    children = [children];
+  }
+
+  return children.map(child => {
+    return createElement(child.tag, params);
+  });
 }
 
 Route.symbol = routeSymbol;
