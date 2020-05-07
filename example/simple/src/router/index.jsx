@@ -59,29 +59,30 @@ export function* Routes() {
 
     const child = children.find(child => {
       if (child.tag.symbol === routeSymbol) {
-        // const pathReg = pathToRegexp(clean(normalize(child.props.path)));
-        // const exp = pathReg.exec(pathname);
-        const m = match(child.props.path);
-        const n = m(pathname);
-         // Should allow for things such as 
+        const pathReg = pathToRegexp(clean(normalize(child.props.path)));
+        const exp = pathReg.exec(pathname);
+        // Should allow for things such as 
         // `/user/:userId/dashboard/:dashboardName`
         // where the generated params are userId and dashboardName respectively.
-        if (n) {
-          return createElement(child, n.params);
+        if (exp) {
+          return true;
         }
       }
       return false;
     });
 
     if (child) {
-      yield child;
+      const m = match(child.props.path);
+      const params = m(pathname);
+      yield createElement(child.tag, params);
     } else {
       yield null;
     }
   }
 }
 
-export function Route({ children }) {
+export function* Route({ children, userId }) {
+  console.log(userId);
   return children;
 }
 

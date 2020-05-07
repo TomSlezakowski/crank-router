@@ -3,8 +3,8 @@ import { createElement, Fragment } from "@bikeshaving/crank";
 import { renderer } from "@bikeshaving/crank/dom";
 import { Router, Link, Routes, Route } from "./router";
 
-function* User({ userId }) {
-  console.log("user", this, userId);
+function User({ userId, children }) {
+  console.log("user", this.get('pathname'), this, children);
   return <h1>USER</h1>;
 }
 
