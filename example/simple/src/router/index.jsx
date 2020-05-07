@@ -59,7 +59,7 @@ export function* Routes() {
     if (child) {
       const m = match(child.props.path);
       const params = m(pathname);
-      this.set('routeParams', {...params.params, ...child.props});
+      this.set('routeParams', params.params);
       yield child;
     } else {
       yield null;
